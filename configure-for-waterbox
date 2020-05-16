@@ -1,3 +1,4 @@
 #!/bin/sh
 export LDFLAGS=--target=pe-x86-64
+export CFLAGS=-Werror
 ./configure --target=waterbox --build=waterbox --disable-shared --prefix=./waterbox-sysroot --syslibdir=./waterbox-sysroot/syslib

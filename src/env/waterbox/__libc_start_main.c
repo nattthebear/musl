@@ -75,7 +75,7 @@ static const void *const __args[] =
 
 int __libc_start_main(void)
 {
-	char **argv = __args;
+	char **argv = (char**)__args;
 	int argc = 1;
 	char **envp = argv+argc+1;
 	__init_libc(envp, argv[0]);
