@@ -181,11 +181,11 @@ lib/musl-gcc.specs: $(srcdir)/tools/musl-gcc.specs.sh config.mak
 
 obj/musl-gcc: config.mak
 	printf '#!/bin/sh\nexec "$${REALGCC:-$(WRAPCC_GCC)}" "$$@" -specs "%s/musl-gcc.specs"\n' "$(libdir)" > $@
-	chmod +x $@
+	#chmod +x $@
 
 obj/%-clang: $(srcdir)/tools/%-clang.in config.mak
 	sed -e 's!@CC@!$(WRAPCC_CLANG)!g' -e 's!@PREFIX@!$(prefix)!g' -e 's!@INCDIR@!$(includedir)!g' -e 's!@LIBDIR@!$(libdir)!g' -e 's!@LDSO@!$(LDSO_PATHNAME)!g' $< > $@
-	chmod +x $@
+	#chmod +x $@
 
 $(DESTDIR)$(bindir)/%: obj/%
 	$(INSTALL) -D $< $@

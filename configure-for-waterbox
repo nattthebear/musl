@@ -1,3 +1,3 @@
 #!/bin/sh
-export CC=gcc
-./configure --target=waterbox --disable-shared --prefix=./waterbox-sysroot --syslibdir=./waterbox-sysroot/syslib
+export LDFLAGS=--target=pe-x86-64
+./configure --target=waterbox --build=waterbox --disable-shared --prefix=./waterbox-sysroot --syslibdir=./waterbox-sysroot/syslib

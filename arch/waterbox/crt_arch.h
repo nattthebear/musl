@@ -1,4 +1,5 @@
+void _start_c();
 void _start(void)
 {
-	_start_c(NULL);
+	_start_c();
 }
