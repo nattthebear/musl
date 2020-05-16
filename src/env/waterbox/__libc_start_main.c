@@ -84,7 +84,7 @@ int __libc_start_main(void)
 	return 0;
 }
 
-#define __WBXSYSCALL __attribute__((section(".wbxsyscall")))
+#define __WBXSYSCALL __attribute__((section(".wbxsyscall"))) __attribute__((visibility("default")))
 __WBXSYSCALL long (*__wsyscall0)(long);
 __WBXSYSCALL long (*__wsyscall1)(long, long);
 __WBXSYSCALL long (*__wsyscall2)(long, long, long);
