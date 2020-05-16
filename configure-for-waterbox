@@ -1,4 +1,6 @@
 #!/bin/sh
+MYPATH="`dirname \"$0\"`"
+SYSROOT="`realpath \"$MYPATH/waterbox-sysroot\"`"
 export LDFLAGS=--target=pe-x86-64
 export CFLAGS=-Werror
-./configure --target=waterbox --build=waterbox --disable-shared --prefix=./waterbox-sysroot --syslibdir=./waterbox-sysroot/syslib
+./configure --target=waterbox --build=waterbox --disable-shared --prefix="$SYSROOT" --syslibdir="$SYSROOT/syslib"
