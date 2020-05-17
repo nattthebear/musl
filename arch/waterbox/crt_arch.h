@@ -1,5 +1,5 @@
-void _start_c();
+void __libc_start_main(void);
 void _start(void)
 {
-	_start_c();
+	__libc_start_main();
 }

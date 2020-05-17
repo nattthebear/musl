@@ -73,15 +73,13 @@ static const void *const __args[] =
 	AT_NULL,
 };
 
-int __libc_start_main(void)
+void __libc_start_main(void)
 {
 	char **argv = (char**)__args;
 	int argc = 1;
 	char **envp = argv+argc+1;
 	__init_libc(envp, argv[0]);
 	__libc_start_init();
-
-	return 0;
 }
 
 #define __WBXSYSCALL __attribute__((section(".wbxsyscall"))) __attribute__((visibility("default")))
