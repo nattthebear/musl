@@ -1,6 +1,6 @@
 #!/bin/sh
 MYPATH="`dirname \"$0\"`"
-SYSROOT="`realpath \"$MYPATH/waterbox-sysroot\"`"
+SYSROOT="`realpath \"$MYPATH/../sysroot\"`"
 export LDFLAGS=""
 export CFLAGS="-Werror -mabi=ms -fvisibility=hidden -mcmodel=large -mstack-protector-guard=global" # TODO: Add -flto
 export AR="gcc-ar"
