@@ -83,6 +83,6 @@ void __libc_start_main(void)
 	__libc_start_init();
 }
 
-struct pthread __wbx_fake_pthread;
+struct pthread* __wbx_fake_pthread;
 #define __WBXSYSCALL __attribute__((section(".wbxsyscall"))) __attribute__((visibility("default")))
 __WBXSYSCALL void *__wsyscalltab[512];
