@@ -51,7 +51,7 @@ if test "$symlink" ; then
 ln -s "$1" "$tmp"
 else
 cat < "$1" > "$tmp"
-#chmod "$mode" "$tmp"
+chmod "$mode" "$tmp" || true
 fi
 
 mv -f "$tmp" "$2"
