@@ -1,30 +1,22 @@
-# From midipix's mmglue
-.global __longjmp
+/* Copyright 2011-2012 Nicholas J. Kain, licensed under standard MIT license */
 .global _longjmp
 .global longjmp
-.type __longjmp,@function
 .type _longjmp,@function
 .type longjmp,@function
-__longjmp:
 _longjmp:
 longjmp:
-	test %edx, %edx		# is val zero?
-	jne  1f			# no:  return val
-	xor  $1,   %edx		# yes: return one
-
+	mov %rsi,%rax           /* val will be longjmp return */
+	test %rax,%rax
+	jnz 1f
+	inc %rax                /* if val==0, val=1 per longjmp semantics */
 1:
-	mov  %edx, %eax		# return value
-
-2:
-	mov  0x10(%rcx), %rbx	# restore regs
-	mov  0x18(%rcx), %rbp
-	mov  0x20(%rcx), %rdi
-	mov  0x28(%rcx), %rsi
-	mov  0x30(%rcx), %r12
-	mov  0x38(%rcx), %r13
-	mov  0x40(%rcx), %r14
-	mov  0x48(%rcx), %r15
-
-	mov  0x08(%rcx), %rsp	# saved stack pointer
-	mov  (%rcx),     %rdx	# return address
-	jmp  *%rdx		# return
+	mov (%rdi),%rbx         /* rdi is the jmp_buf, restore regs from it */
+	mov 8(%rdi),%rbp
+	mov 16(%rdi),%r12
+	mov 24(%rdi),%r13
+	mov 32(%rdi),%r14
+	mov 40(%rdi),%r15
+	mov 48(%rdi),%rdx       /* this ends up being the stack pointer */
+	mov %rdx,%rsp
+	mov 56(%rdi),%rdx       /* this is the instruction pointer */
+	jmp *%rdx               /* goto saved address without altering rsp */
