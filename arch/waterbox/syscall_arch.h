@@ -11,7 +11,7 @@ static __inline long __syscall0(long n)
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10)
-		:"r11", "memory");
+		:"rdi", "rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
 	return _rax;
 }
 
@@ -23,7 +23,7 @@ static __inline long __syscall1(long n, long a1)
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi)
-		:"r11", "memory");
+		:"rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
 	return _rax;
 }
 
@@ -36,7 +36,7 @@ static __inline long __syscall2(long n, long a1, long a2)
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi)
-		:"r11", "memory");
+		:"rdx", "rcx", "r8", "r9", "r11", "memory");
 	return _rax;
 }
 
@@ -50,7 +50,7 @@ static __inline long __syscall3(long n, long a1, long a2, long a3)
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx)
-		:"r11", "memory");
+		:"rcx", "r8", "r9", "r11", "memory");
 	return _rax;
 }
 
@@ -65,7 +65,7 @@ static __inline long __syscall4(long n, long a1, long a2, long a3, long a4)
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx)
-		:"r11", "memory");
+		:"r8", "r9", "r11", "memory");
 	return _rax;
 }
 
@@ -81,7 +81,7 @@ static __inline long __syscall5(long n, long a1, long a2, long a3, long a4, long
 	__asm__ __volatile__ ("call %%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8)
-		:"r11", "memory");
+		:"r9", "r11", "memory");
 	return _rax;
 }
 
