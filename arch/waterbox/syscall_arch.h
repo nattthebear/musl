@@ -1,61 +1,105 @@
 #define __SYSCALL_LL_E(x) (x)
 #define __SYSCALL_LL_O(x) (x)
 
-struct __AddressRange {
-	unsigned long start;
-	unsigned long size;
-};
-struct __WbxSysLayout {
-	struct __AddressRange elf;
-	struct __AddressRange sbrk;
-	struct __AddressRange sealed;
-	struct __AddressRange invis;
-	struct __AddressRange plain;
-	struct __AddressRange mmap;
-};
-struct __WbxSysSyscall {
-	long ud;
-	void* syscall;
-};
-struct __WbxSysArea {
-	struct __WbxSysLayout layout;
-	struct __WbxSysSyscall syscall;
-};
-extern struct __WbxSysArea __wbxsysarea;
+// "Regular call, plus an arg in rax" turned out to be more syntactially awful than I expected
+// But it's not slow or anything.
 
 static __inline long __syscall0(long n)
 {
-	return ((long(*)(long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud);
+	register long _rax __asm__("rax") = n;
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall1(long n, long a1)
 {
-	return ((long(*)(long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall2(long n, long a1, long a2)
 {
-	return ((long(*)(long, long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1, a2);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _rsi __asm__("rsi") = a2;	
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall3(long n, long a1, long a2, long a3)
 {
-	return ((long(*)(long, long, long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1, a2, a3);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _rsi __asm__("rsi") = a2;
+	register long _rdx __asm__("rdx") = a3;	
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall4(long n, long a1, long a2, long a3, long a4)
 {
-	return ((long(*)(long, long, long, long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1, a2, a3, a4);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _rsi __asm__("rsi") = a2;
+	register long _rdx __asm__("rdx") = a3;
+	register long _rcx __asm__("rcx") = a4;	
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall5(long n, long a1, long a2, long a3, long a4, long a5)
 {
-	return ((long(*)(long, long, long, long, long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1, a2, a3, a4, a5);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _rsi __asm__("rsi") = a2;
+	register long _rdx __asm__("rdx") = a3;
+	register long _rcx __asm__("rcx") = a4;
+	register long _r8 __asm__("r8") = a5;	
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8)
+		:"r11", "memory");
+	return _rax;
 }
 
 static __inline long __syscall6(long n, long a1, long a2, long a3, long a4, long a5, long a6)
 {
-	return ((long(*)(long, long, long, long, long, long, long, long))__wbxsysarea.syscall.syscall)(n, __wbxsysarea.syscall.ud, a1, a2, a3, a4, a5, a6);
+	register long _rax __asm__("rax") = n;
+	register long _rdi __asm__("rdi") = a1;
+	register long _rsi __asm__("rsi") = a2;
+	register long _rdx __asm__("rdx") = a3;
+	register long _rcx __asm__("rcx") = a4;
+	register long _r8 __asm__("r8") = a5;
+	register long _r9 __asm__("r9") = a6;	
+	register long _r10 __asm__("r10") = 0x35f00000080;
+	__asm__ __volatile__ ("call %%r10"
+		:"=r"(_rax)
+		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8), "r"(_r9)
+		:"r11", "memory");
+	return _rax;
 }
 
 #define VDSO_USEFUL
