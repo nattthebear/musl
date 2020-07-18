@@ -32,4 +32,4 @@ child_thread_start:
 	mov $60,%al
 	mov $0x35f00000080,%r10
 	call *%r10
-	hlt
+	int3
