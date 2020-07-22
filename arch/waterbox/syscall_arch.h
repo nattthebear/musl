@@ -8,7 +8,7 @@ static __inline long __syscall0(long n)
 {
 	register long _rax __asm__("rax") = n;
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10)
 		:"rdi", "rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
@@ -20,7 +20,7 @@ static __inline long __syscall1(long n, long a1)
 	register long _rax __asm__("rax") = n;
 	register long _rdi __asm__("rdi") = a1;
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi)
 		:"rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
@@ -33,7 +33,7 @@ static __inline long __syscall2(long n, long a1, long a2)
 	register long _rdi __asm__("rdi") = a1;
 	register long _rsi __asm__("rsi") = a2;	
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi)
 		:"rdx", "rcx", "r8", "r9", "r11", "memory");
@@ -47,7 +47,7 @@ static __inline long __syscall3(long n, long a1, long a2, long a3)
 	register long _rsi __asm__("rsi") = a2;
 	register long _rdx __asm__("rdx") = a3;	
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx)
 		:"rcx", "r8", "r9", "r11", "memory");
@@ -62,7 +62,7 @@ static __inline long __syscall4(long n, long a1, long a2, long a3, long a4)
 	register long _rdx __asm__("rdx") = a3;
 	register long _rcx __asm__("rcx") = a4;	
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx)
 		:"r8", "r9", "r11", "memory");
@@ -78,7 +78,7 @@ static __inline long __syscall5(long n, long a1, long a2, long a3, long a4, long
 	register long _rcx __asm__("rcx") = a4;
 	register long _r8 __asm__("r8") = a5;	
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8)
 		:"r9", "r11", "memory");
@@ -95,7 +95,7 @@ static __inline long __syscall6(long n, long a1, long a2, long a3, long a4, long
 	register long _r8 __asm__("r8") = a5;
 	register long _r9 __asm__("r9") = a6;	
 	register long _r10 __asm__("r10") = 0x35f00000080;
-	__asm__ __volatile__ ("call %%r10"
+	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8), "r"(_r9)
 		:"r11", "memory");

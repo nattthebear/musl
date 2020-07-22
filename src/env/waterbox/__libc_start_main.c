@@ -82,5 +82,3 @@ void __libc_start_main(void)
 	__init_libc(envp, argv[0]);
 	__libc_start_init();
 }
-
-struct pthread* __wbx_fake_pthread;
