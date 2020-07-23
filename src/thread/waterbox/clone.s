@@ -14,7 +14,7 @@ __clone:
 	mov %rcx,8(%rsi) /* thread entry argument */
 	mov child_thread_start,%r10
 	mov %r10,(%rsi) /* host will ret in child thread... */
-	sub $48,%rsi /* ... after popping 6 regs */
+	sub $8,%rsi /* ... after popping 1 regs */
 
 	mov %r9,%rdi /* tls */
 	mov %r8,%rdx /* parent_tid */
@@ -27,7 +27,7 @@ __clone:
 
 child_thread_start:
 	pop %rdi /* thread entry argument */
-	pop %rax /* thread entry point */
+	mov 0(%rsp),%rax /* thread entry point (don't pop; fix stack alignment) */
 	call *%rax /* run thread */
 
 	/* syscall exit */

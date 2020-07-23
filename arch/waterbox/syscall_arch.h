@@ -11,7 +11,10 @@ static __inline long __syscall0(long n)
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10)
-		:"rdi", "rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
+		:"rdi", "rsi", "rdx", "rcx", "r8", "r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -23,7 +26,10 @@ static __inline long __syscall1(long n, long a1)
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi)
-		:"rsi", "rdx", "rcx", "r8", "r9", "r11", "memory");
+		:"rsi", "rdx", "rcx", "r8", "r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -36,7 +42,10 @@ static __inline long __syscall2(long n, long a1, long a2)
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi)
-		:"rdx", "rcx", "r8", "r9", "r11", "memory");
+		:"rdx", "rcx", "r8", "r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -50,7 +59,10 @@ static __inline long __syscall3(long n, long a1, long a2, long a3)
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx)
-		:"rcx", "r8", "r9", "r11", "memory");
+		:"rcx", "r8", "r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -65,7 +77,10 @@ static __inline long __syscall4(long n, long a1, long a2, long a3, long a4)
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx)
-		:"r8", "r9", "r11", "memory");
+		:"r8", "r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -81,7 +96,10 @@ static __inline long __syscall5(long n, long a1, long a2, long a3, long a4, long
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8)
-		:"r9", "r11", "memory");
+		:"r9", "r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
@@ -98,7 +116,10 @@ static __inline long __syscall6(long n, long a1, long a2, long a3, long a4, long
 	__asm__ __volatile__ ("call *%%r10"
 		:"=r"(_rax)
 		:"r"(_rax), "r"(_r10), "r"(_rdi), "r"(_rsi), "r"(_rdx), "r"(_rcx), "r"(_r8), "r"(_r9)
-		:"r11", "memory");
+		:"r11", "r12", "r13", "r14", "r15", "rbx",
+			"zmm0", "zmm1", "zmm2", "zmm3", "zmm4", "zmm5", "zmm6", "zmm7",
+			"zmm8", "zmm9", "zmm10", "zmm11", "zmm12", "zmm13", "zmm14", "zmm15",
+			"memory");
 	return _rax;
 }
 
