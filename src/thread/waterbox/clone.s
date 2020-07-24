@@ -12,7 +12,7 @@ __clone:
 	sub $24,%rsi
 	mov %rdi,16(%rsi) /* thread entry point */
 	mov %rcx,8(%rsi) /* thread entry argument */
-	mov child_thread_start,%r10
+	lea child_thread_start(%rip),%r10
 	mov %r10,(%rsi) /* host will ret in child thread... */
 	sub $8,%rsi /* ... after popping 1 regs */
 
