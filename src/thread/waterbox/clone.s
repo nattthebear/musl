@@ -27,7 +27,7 @@ __clone:
 
 child_thread_start:
 	pop %rdi /* thread entry argument */
-	mov 0(%rsp),%rax /* thread entry point (don't pop; fix stack alignment) */
+	pop %rax /* thread entry point */
 	call *%rax /* run thread */
 
 	/* syscall exit */
