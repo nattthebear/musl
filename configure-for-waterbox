@@ -1,4 +1,5 @@
 #!/bin/sh
+mkdir -p ../sysroot
 MYPATH="`dirname \"$0\"`"
 SYSROOT="`realpath \"$MYPATH/../sysroot\"`"
 export LDFLAGS=""
