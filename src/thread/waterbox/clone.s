@@ -18,8 +18,10 @@ __clone: /* (entry_point, stack, flags, arg, ptid, tls, ctid) */
 	lea child_thread_start(%rip),%rdx /* child_rip */
 
 	/* syscall NR_WBX_CLONE (tls, child_rsp, child_rip, child_tid, parent_tid) */
+	sub $8,%rsp
 	mov $0x35f00000080,%r10
 	call *%r10
+	add $8,%rsp
 	ret
 
 child_thread_start:
