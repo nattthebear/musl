@@ -1,7 +1,7 @@
 #!/bin/sh
-mkdir -p ../sysroot
-MYPATH="`dirname \"$0\"`"
-SYSROOT="`realpath \"$MYPATH/../sysroot\"`"
+set -e
+if [ -z "$SYSROOT" ]; then export SYSROOT="$(realpath "$(dirname "$0")/../sysroot")"; fi
+
 export LDFLAGS=""
 export CFLAGS="-Werror -fvisibility=hidden -mcmodel=large -mstack-protector-guard=global -no-pie -fno-pic -fno-pie" # TODO: Add -flto
 export AR="gcc-ar"
