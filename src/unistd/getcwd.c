@@ -21,5 +21,7 @@ char *getcwd(char *buf, size_t size)
 		errno = ENOENT;
 		return 0;
 	}
+	// silences an incorrect warning in gcc 10+, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93644
+	#pragma GCC diagnostic ignored "-Wreturn-local-addr" \
 	return buf == tmp ? strdup(buf) : buf;
 }
