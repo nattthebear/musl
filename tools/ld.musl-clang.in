@@ -26,12 +26,14 @@ for x ; do
         -l-user-end)
             userlink=
             ;;
-        crtbegin*.o|crtend*.o)
-            set -- "$@" $($cc -print-file-name=$x)
+        *crtbegin*.o|*crtend*.o)
+            # these correspond to system crtbegin/crtend, which we don't want to be used (our crti/crtn will be used instead for this purpose)
+            #set -- "$@" $($cc -print-file-name=$x)
             ;;
         -lgcc|-lgcc_eh)
-            file=lib${x#-l}.a
-            set -- "$@" $($cc -print-file-name=$file)
+            # for libclang-rt (and libunwind) to be used, the gcc libs cannot be linked in
+            #file=lib${x#-l}.a
+            #set -- "$@" $($cc -print-file-name=$file)
             ;;
         -l*)
             test "$userlink" && set -- "$@" "$x"
@@ -48,4 +50,4 @@ for x ; do
     esac
 done
 
-exec $($cc -print-prog-name=ld) -nostdlib "$@" -lc -dynamic-linker "$ldso"
+exec $($cc -print-prog-name=ld.lld) -nostdlib "$@" -lc -dynamic-linker "$ldso"

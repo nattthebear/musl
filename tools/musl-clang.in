@@ -5,6 +5,31 @@ libc_inc="@INCDIR@"
 libc_lib="@LIBDIR@"
 thisdir="`cd "$(dirname "$0")"; pwd`"
 
+# note: there seems to be bug in clang that has ibuiltininc not work with nostdinc
+# despite clang's docs stating ibuiltininc should work if placed after nostdinc
+# nostdlibinc + nostdinc++ are used together as a substitute for nostdinc + ibuiltininc
+# TODO: the builtin includes from llvm should probably be copied over (partially, just the intrinsic ones)
+# and used (llvm-project/clang/lib/Headers), we shouldn't rely on system ones...
+
+# we don't want to invoke some of these arguments when we aren't linking (otherwise clang gives annoying warnings)
+# so detect when the linker will not be used
+for x ; do
+    case "$x" in
+        -c|-S|-E) no_linker=1 ;;
+        *) no_linker= ;;
+    esac
+    if test "$no_linker" ; then
+        exec $cc \
+            -B"$thisdir" \
+            -nostdlibinc \
+            -nostdinc++ \
+            --sysroot "$libc" \
+            -isystem "$libc_inc" \
+            "$@"
+        exit 0
+    fi
+done
+
 # prevent clang from running the linker (and erroring) on no input.
 sflags=
 eflags=
@@ -20,11 +45,24 @@ for x ; do
     fi
 done
 
+# when only object files are present, nostdinc is not valid, and clang will give a warning
+# detect this and avoid including that argument if so
+nostdinc=
+for x ; do
+    case "$x" in
+        *.c|*.i|*.ii|*.h|*.cc|*.cp|*.cxx|*.cpp|*.CPP|*.c++|*.C|*.hh|*.H|*.hp|*.hxx|*.hpp|*.HPP|*.h++|*.tcc|*.s|*.S|*.sx) nostdinc="-nostdinc" ;;
+        -x) nostdinc="-nostdlibinc -nostdinc++" ;; # potentially wrong with -x none, but it's just a warning and that's a dumb case to cover
+        *) ;;
+    esac
+    if test "$nostdinc" ; then
+        break
+    fi
+done
+
 exec $cc \
     -B"$thisdir" \
     -fuse-ld=musl-clang \
-    -static-libgcc \
-    -nostdinc \
+    $nostdinc \
     --sysroot "$libc" \
     -isystem "$libc_inc" \
     -L-user-start \
