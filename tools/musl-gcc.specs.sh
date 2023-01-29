@@ -14,7 +14,7 @@ cat <<EOF
 -L$libdir -L .%s
 
 *libgcc:
-libgcc.a%s %:if-exists(libgcc_eh.a%s)
+
 
 *startfile:
 %{!shared: $libdir/Scrt1.o} $libdir/crti.o
