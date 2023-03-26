@@ -5,6 +5,10 @@ libc_inc="@INCDIR@"
 libc_lib="@LIBDIR@"
 thisdir="`cd "$(dirname "$0")"; pwd`"
 
+# note: there seems to be bug in clang that has ibuiltininc not work with nostdinc
+# despite clang's docs stating ibuiltininc should work if placed after nostdinc
+# nostdlibinc + nostdinc++ are used together as a substitute for nostdinc + ibuiltininc
+
 # we don't want to invoke some of these arguments when we aren't linking (otherwise clang gives annoying warnings)
 # so detect when the linker will not be used
 for x ; do
@@ -15,7 +19,8 @@ for x ; do
     if test "$no_linker" ; then
         exec $cc \
             -B"$thisdir" \
-            -nostdinc \
+            -nostdlibinc \
+            -nostdinc++ \
             --sysroot "$libc" \
             -isystem "$libc_inc" \
             "$@"
@@ -47,7 +52,8 @@ done
 exec $cc \
     -B"$thisdir" \
     -fuse-ld=musl-clang \
-    -nostdinc \
+    -nostdlibinc \
+    -nostdinc++ \
     -Wno-unused-command-line-argument \
     --sysroot "$libc" \
     -isystem "$libc_inc" \
