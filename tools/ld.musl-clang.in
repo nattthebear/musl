@@ -7,6 +7,11 @@ shared=
 userlinkdir=
 userlink=
 
+# unpack response file to arguments
+case "$1" in \@*)
+	exec xargs -a "${1#@}" "$0"
+esac
+
 for x ; do
     test "$cleared" || set -- ; cleared=1
 
